@@ -1,0 +1,7 @@
+# run lint
+
+npm run lint
+
+# run test
+
+npm test
