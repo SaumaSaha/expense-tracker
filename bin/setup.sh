@@ -3,6 +3,9 @@
 # setup pre commits
 cp ./bin/pre-commit ./.git/hooks
 
+# making pre commit executable
+chmod u+x ./.git/hooks/pre-commit
+
 # install npm packages
 npm install
 
