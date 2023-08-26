@@ -1,0 +1,42 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add Expense</title>
+    <link rel="stylesheet" href="/styles/add-expense.css" />
+  </head>
+  <body>
+    <main id="add-expense-page">
+      <form action="/expenses" method="post" id="add-expense-form">
+        <header id="form-header-section"><h1 id="form-header">Add Expense</h1></header>
+        <fieldset id="expense-title-field" class="field">
+          <legend class="field-title">Title</legend>
+          <input
+            type="text"
+            name="title"
+            id="expense-title-text-box"
+            class="input-box"
+            placeholder="Enter Title"
+          />
+        </fieldset>
+        <fieldset id="expense-amount-field" class="field">
+          <legend class="field-title">Amount</legend>
+          <input
+            type="text"
+            name="amount"
+            id="expense-amount-text-box"
+            class="input-box"
+            placeholder="Enter Amount"
+          />
+        </fieldset>
+        <fieldset id="expense-date-field" class="field">
+          <legend class="field-title">Date</legend>
+          <input type="date" name="date" id="expense-date-text-box" class="input-box" />
+        </fieldset>
+        <div id="buttons-section">
+          <input type="reset" value="Clear" class="button" />
+          <input type="submit" value="Add" class="button" />
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
