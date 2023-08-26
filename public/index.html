@@ -7,12 +7,31 @@
   <body>
     <main id="page">
       <header id="page-header-section">
-        <h1 id="page-header">Expense Tracker</h1>
+        <h1 id="page-header">💲 Expense Tracker</h1>
+        <ul id="auth-section">
+          <li>Sign Out</li>
+        </ul>
       </header>
       <article id="main-content">
         <article id="total-expense-section">
-          <p>Total Expense: 8000</p>
+          <h1 id="total-expense-header">Total Expense: 8000</h1>
         </article>
+        <section id="expense-section">
+          <header id="expense-section-header">
+            <h1>Expenses</h1>
+          </header>
+          <nav id="nav-section">
+            <p>Last 10 Expenses</p>
+            <div id="nav-buttons">
+              <input type="button" value="History" />
+              <input type="button" value="Add Expense" />
+            </div>
+          </nav>
+          <ul id="expenses">
+            <li class="expense">This is an expense</li>
+            <li class="expense">This is another expense</li>
+          </ul>
+        </section>
       </article>
     </main>
   </body>
