@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 
 # setup pre commits
 cp ./bin/pre-commit ./.git/hooks

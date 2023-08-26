@@ -10,7 +10,7 @@ describe("/", () => {
       app = createApp();
     });
     it("should give the home page content", (_, done) => {
-      request(app).get("/").expect(200).expect("Home Page").end(done);
+      request(app).get("/").expect(303).expect("location", "/index.html").end(done);
     });
   });
 });

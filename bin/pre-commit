@@ -3,11 +3,10 @@
 echo "<<<<<<<< PRE-COMMIT >>>>>>>>"
 
 # run lint
-
 npm run lint
-echo -e "\x1B[1;32m✅ Lint ran successfully\x1B[0m"
 
 # run test
+npm run coverage
 
-npm test
+echo -e "\x1B[1;32m✅ Lint ran successfully\x1B[0m"
 echo -e "\x1B[1;32m✅ Test ran successfully\x1B[0m"
