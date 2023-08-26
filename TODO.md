@@ -11,7 +11,7 @@ What is an expense tracker ?
   => total expense
 
 What is an expense ?
-=> A thing on which one is required to spend money.
+=> A thing on which one has spend money.
 
   What does an expense consist of ?
   => Title (where the amount is spent ex - Rent/Food/Clothes)
@@ -38,12 +38,10 @@ Expense
 User
   fields:
     name;
-    expenses = [];
     id;
 
   methods:
-    getDetails() => will give all the details of the user(name,id, totalExpense, expenses)
-    #calculateTotalExpense() => will calculate the total expense of the user
+    getDetails() => will give all the details of the user(name,id)
 
 ---
 
@@ -54,19 +52,32 @@ Users => will keep the data of the logged in users
   methods:
     addUser()
     removeUser()
-    addExpense(userId, expenseDetails)
-    deleteExpense(userId, expenseId)
     getDetails(userId, name)
+
+---
+
+Expenses
+  fields:
+    expenses; => it will hold the expenses of the logged in users;
+
+  methods:
+    addExpense(userId, expenseDetails)
+    deleteExpense(expenseId)
+    getExpenses(userId)
+    #calculateTotalExpense(userId) => will calculate the total expense of the given user
 
 ---
 
 Expense
   fields:
+    id;
+    userId;
     title;
     amount;
     data;
 
   methods:
+    getId()
     changeTitle()
     changeAmount()
     getDetails()
