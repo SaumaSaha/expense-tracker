@@ -3,9 +3,11 @@
     <meta charset="UTF-8" />
     <title>Add Expense</title>
     <link rel="stylesheet" href="/styles/add-expense.css" />
+    <script src="/scripts/add-expense.js"></script>
   </head>
   <body>
     <main id="add-expense-page">
+      <div id="bg-image"></div>
       <form action="/expenses" method="post" id="add-expense-form">
         <header id="form-header-section"><h1 id="form-header">Add Expense</h1></header>
         <fieldset id="expense-title-field" class="field">
@@ -21,7 +23,7 @@
         <fieldset id="expense-amount-field" class="field">
           <legend class="field-title">Amount</legend>
           <input
-            type="text"
+            type="number"
             name="amount"
             id="expense-amount-text-box"
             class="input-box"
@@ -34,7 +36,7 @@
         </fieldset>
         <div id="buttons-section">
           <input type="reset" value="Clear" class="button" />
-          <input type="submit" value="Add" class="button" />
+          <input type="submit" value="Add" class="button" id="add-expense-btn" />
         </div>
       </form>
     </main>

@@ -10,13 +10,15 @@
 #page-header-section {
   padding: 10px;
   margin: 10px;
-  text-align: center;
   height: 70px;
-  border-radius: 0.5em;
-  background-color: lightgrey;
+  text-align: center;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  border-radius: 0.5em;
+  background-color: lightgrey;
 }
 
 #page-header {
@@ -33,6 +35,7 @@
 #main-content {
   padding: 10px;
   margin: 0 auto;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,8 +51,10 @@
   margin: 10px;
   width: 800px;
   aspect-ratio: 1;
+
   border-radius: 0.5em;
   border: 1px solid black;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -61,17 +66,21 @@
   width: 100%;
   height: 3em;
   text-align: center;
+
   border-radius: 0.5em;
-  background-color: lightgrey;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background-color: lightgrey;
 }
 
 #nav-section {
   padding: 10px;
   width: 100%;
+
   border-bottom: 1px solid black;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -93,7 +102,9 @@
 #expenses {
   padding: 10px;
   width: 100%;
+
   list-style-type: none;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
