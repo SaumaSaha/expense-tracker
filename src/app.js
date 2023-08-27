@@ -1,6 +1,6 @@
 const express = require("express");
 const { logRequest } = require("./middlewares/request-logger");
-const { handleAddExpense } = require("./handlers/request-handlers");
+const { handleAddExpense, handleGetExpenses } = require("./handlers/request-handlers");
 
 const createApp = (expenses, idGenerator) => {
   const app = express();
@@ -11,6 +11,7 @@ const createApp = (expenses, idGenerator) => {
   app.use(express.json());
   app.use(express.static("public"));
   app.post("/expenses", handleAddExpense);
+  app.get("/expenses", handleGetExpenses);
   return app;
 };
 

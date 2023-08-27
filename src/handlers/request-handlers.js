@@ -11,4 +11,10 @@ const handleAddExpense = (req, res) => {
   res.status(201).json({ expenseId });
 };
 
-module.exports = { handleAddExpense };
+const handleGetExpenses = (req, res) => {
+  const { expenses } = req.app;
+
+  res.json(expenses.details);
+};
+
+module.exports = { handleAddExpense, handleGetExpenses };

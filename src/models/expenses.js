@@ -10,7 +10,7 @@ class Expenses {
   }
 
   get details() {
-    this.#expenses.map((expense) => expense.details);
+    return this.#expenses.map((expense) => expense.details);
   }
 }
 
