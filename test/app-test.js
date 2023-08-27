@@ -59,6 +59,17 @@ describe("App", () => {
         .expect({ details: testExpensesData, totalExpense: 8000 })
         .end(done);
     });
+
+    it("should get 403 if no cookie is sent", (_, done) => {
+      const idGenerator = new IdGenerator();
+      const testExpenses = createExpenses(testExpensesData, idGenerator);
+      const expenses = new Expenses(testExpenses);
+      const user = new User("sauma", "1234", 1);
+      const users = new Users([user]);
+      const app = createApp(users, expenses, idGenerator, null);
+
+      request(app).get("/expenses").expect(403).end(done);
+    });
   });
 
   describe("POST /expenses", () => {
