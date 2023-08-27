@@ -6,7 +6,9 @@ class Users {
   }
 
   #findUserBy(name) {
-    return this.#users.find((user) => (user.details.name = name));
+    return this.#users.find((user) => {
+      return user.details.name === name;
+    });
   }
 
   add(user) {
@@ -19,8 +21,8 @@ class Users {
   }
 
   isValidLoginCredentials(name, password) {
-    const user = this.#findUserBy(name) || {};
-    return user.details.password === password;
+    const user = this.#findUserBy(name);
+    return user ? user.details.password === password : false;
   }
 
   get details() {

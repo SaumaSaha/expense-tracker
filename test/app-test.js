@@ -93,6 +93,7 @@ describe("App", () => {
 
       const idGenerator = new IdGenerator();
       const userDataStorage = new UserDataStorage(TEST_STORAGE, fs);
+      userDataStorage.init();
       const users = new Users();
 
       const app = createApp(users, null, idGenerator, userDataStorage);
@@ -110,7 +111,7 @@ describe("App", () => {
         existsSync: context.mock.fn(() => true),
         readFileSync: context.mock.fn(() => {
           // eslint-disable-next-line quotes
-          return '[{"username": "sauma", "password": "123456", "id":1 }]';
+          return '[{"name": "sauma", "password": "123456", "id":1 }]';
         }),
         writeFileSync: context.mock.fn(),
         writeFile: context.mock.fn(),
@@ -128,7 +129,6 @@ describe("App", () => {
         .post("/sign-up")
         .send({ name: "sauma", password: "123456" })
         .expect(403)
-        .expect({ message: "Username Already Exists" })
         .end(done);
     });
   });
@@ -158,6 +158,58 @@ describe("App", () => {
         .send({ name: "sauma", password: "123456" })
         .expect(200)
         .expect("set-cookie", "name=sauma; Path=/")
+        .end(done);
+    });
+
+    it("should not sign the user in if password is not valid", (context, done) => {
+      const fs = {
+        existsSync: context.mock.fn(() => true),
+        readFileSync: context.mock.fn(() => {
+          // eslint-disable-next-line quotes
+          return '[{ "name": "sauma", "password": "123456", "id": 1 }]';
+        }),
+        writeFileSync: context.mock.fn(),
+        writeFile: context.mock.fn(),
+      };
+
+      const idGenerator = new IdGenerator();
+      const userDataStorage = new UserDataStorage(TEST_STORAGE, fs);
+      const restoredUsersDetails = userDataStorage.init();
+      const restoredUsers = createUsers(restoredUsersDetails, idGenerator);
+      const users = new Users(restoredUsers);
+
+      const app = createApp(users, null, idGenerator, userDataStorage);
+
+      request(app)
+        .post("/sign-in")
+        .send({ name: "sauma", password: "123" })
+        .expect(403)
+        .end(done);
+    });
+
+    it("should not sign the user in if name is not valid", (context, done) => {
+      const fs = {
+        existsSync: context.mock.fn(() => true),
+        readFileSync: context.mock.fn(() => {
+          // eslint-disable-next-line quotes
+          return '[{ "name": "sauma", "password": "123456", "id": 1 }]';
+        }),
+        writeFileSync: context.mock.fn(),
+        writeFile: context.mock.fn(),
+      };
+
+      const idGenerator = new IdGenerator();
+      const userDataStorage = new UserDataStorage(TEST_STORAGE, fs);
+      const restoredUsersDetails = userDataStorage.init();
+      const restoredUsers = createUsers(restoredUsersDetails, idGenerator);
+      const users = new Users(restoredUsers);
+
+      const app = createApp(users, null, idGenerator, userDataStorage);
+
+      request(app)
+        .post("/sign-in")
+        .send({ name: "sourav", password: "123456" })
+        .expect(403)
         .end(done);
     });
   });

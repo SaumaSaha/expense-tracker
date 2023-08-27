@@ -7,8 +7,7 @@ const sendSignUpSuccessful = (_, res) => {
 };
 
 const sendUsernameExists = (_, res) => {
-  const message = "Username Already Exists";
-  res.status(403).json({ message });
+  res.status(403).send();
 };
 
 const sendValidLogin = (req, res) => {
