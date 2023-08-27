@@ -22,6 +22,7 @@ const createApp = (expenses, idGenerator, userDataManager) => {
   app.post("/expenses", handleAddExpense);
   app.get("/expenses", handleGetExpenses);
   app.post("/sign-up", handleSignUp);
+  app.use(express.static("private"));
 
   return app;
 };

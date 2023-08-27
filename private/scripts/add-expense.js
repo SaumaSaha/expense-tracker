@@ -11,7 +11,7 @@ const postExpense = () => {
 
   fetch("/expenses", request).then((res) => {
     if (res.status === 201) {
-      location.assign("/index.html");
+      location.assign("/pages/expenses.html");
       return;
     }
 
