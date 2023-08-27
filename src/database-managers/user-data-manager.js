@@ -17,19 +17,13 @@ class UserDataManager {
     return name in this.#userData;
   }
 
-  store(username, password, userId, { onSuccess, onError }) {
+  store(username, password, userId, onSuccess) {
     this.#userData[username] = { username, password, userId };
 
     this.#fileSystem.writeFile(
       this.#storagePath,
       JSON.stringify(this.#userData),
-      (err) => {
-        if (err) {
-          onError();
-          return;
-        }
-        onSuccess();
-      }
+      onSuccess
     );
   }
 
@@ -37,6 +31,7 @@ class UserDataManager {
     if (this.#isFilePresent()) {
       const data = this.#fileSystem.readFileSync(this.#storagePath, "utf-8");
       this.#userData = JSON.parse(data);
+      return;
     }
 
     this.#fileSystem.writeFileSync(this.#storagePath, JSON.stringify(this.#userData));

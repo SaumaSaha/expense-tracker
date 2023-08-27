@@ -17,7 +17,6 @@ const handleGetExpenses = (req, res) => {
   res.json(expenses.details);
 };
 
-// eslint-disable-next-line max-statements
 const handleSignUp = (req, res) => {
   const { userDataManager, idGenerator } = req.app;
   const { name, password } = req.body;
@@ -28,9 +27,6 @@ const handleSignUp = (req, res) => {
     message = "Sign Up successful";
     res.status(201).json({ message });
   };
-  const onError = () => {
-    res.status(500);
-  };
 
   if (userDataManager.isUsernamePresent(name)) {
     message = "Username Already Exists";
@@ -39,7 +35,7 @@ const handleSignUp = (req, res) => {
   }
 
   const userId = idGenerator.generateUserId();
-  userDataManager.store(name, password, userId, { onSuccess, onError });
+  userDataManager.store(name, password, userId, onSuccess);
 };
 
 module.exports = { handleAddExpense, handleGetExpenses, handleSignUp };

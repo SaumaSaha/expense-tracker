@@ -1,6 +1,6 @@
 const fs = require("fs");
 const { createApp } = require("./src/app");
-const UserDataManager = require("./src/database-managers/user-data-storage");
+const UserDataManager = require("./src/database-managers/user-data-manager");
 const Expenses = require("./src/models/expenses");
 const IdGenerator = require("./src/models/id-generator");
 const STORAGE_PATH = "./user-data.json";
