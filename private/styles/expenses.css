@@ -49,6 +49,11 @@ body {
   list-style-type: none;
 }
 
+.auth-link {
+  text-decoration: none;
+  color: var(--green);
+}
+
 #main-content {
   padding: 10px;
   margin: 0 auto;

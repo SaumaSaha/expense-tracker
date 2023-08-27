@@ -4,6 +4,7 @@ const createSignOutElement = () => {
 
   anchor.href = "/sign-out";
   anchor.innerText = "Sign Out";
+  anchor.classList.add("auth-link");
 
   signOutElement.append(anchor);
 

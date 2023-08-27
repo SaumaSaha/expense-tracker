@@ -60,7 +60,7 @@ describe("App", () => {
         .end(done);
     });
 
-    it("should get 403 if no cookie is sent", (_, done) => {
+    it("should redirect to sign in page if no cookie is sent", (_, done) => {
       const idGenerator = new IdGenerator();
       const testExpenses = createExpenses(testExpensesData, idGenerator);
       const expenses = new Expenses(testExpenses);
@@ -68,7 +68,11 @@ describe("App", () => {
       const users = new Users([user]);
       const app = createApp(users, expenses, idGenerator, null);
 
-      request(app).get("/expenses").expect(403).end(done);
+      request(app)
+        .get("/expenses")
+        .expect(303)
+        .expect("location", "/pages/sign-in.html")
+        .end(done);
     });
   });
 
@@ -258,6 +262,22 @@ describe("App", () => {
         .get("/validate-username")
         .set("cookie", "name=milan")
         .expect(401)
+        .end(done);
+    });
+  });
+
+  describe("GET /sign-out", () => {
+    it("should sign out the user by removing the cookie", (_, done) => {
+      const user = new User("sauma", "1234", 1);
+      const users = new Users([user]);
+      const app = createApp(users, null, null, null);
+
+      request(app)
+        .get("/sign-out")
+        .set("cookie", "name=sauma")
+        .expect(303)
+        .expect("set-cookie", "name=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT")
+        .expect("location", "/index.html")
         .end(done);
     });
   });

@@ -74,10 +74,16 @@ const handleValidateUsername = (req, res) => {
 
   res.status(401).send();
 };
+
+const handleSignOut = (_, res) => {
+  res.clearCookie("name").redirect(303, "/index.html");
+};
+
 module.exports = {
   handleAddExpense,
   handleGetExpenses,
   handleSignUp,
   handleSignIn,
   handleValidateUsername,
+  handleSignOut,
 };

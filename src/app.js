@@ -5,6 +5,7 @@ const {
   handleSignUp,
   handleSignIn,
   handleValidateUsername,
+  handleSignOut,
 } = require("./handlers/request-handlers");
 
 const { logRequest } = require("./middlewares/request-logger");
@@ -23,6 +24,7 @@ const addPublicHandlers = (app) => {
 
 const addPrivateHandlers = (app) => {
   app.use(handleAuth);
+  app.get("/sign-out", handleSignOut);
   app.post("/expenses", handleAddExpense);
   app.get("/expenses", handleGetExpenses);
   app.use(express.static("private"));

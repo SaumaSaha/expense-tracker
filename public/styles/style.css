@@ -58,7 +58,7 @@
   gap: 40px;
 }
 
-#auth-section * {
+.auth-link {
   cursor: pointer;
   text-decoration: none;
   color: var(--green);

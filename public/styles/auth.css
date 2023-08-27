@@ -98,3 +98,9 @@
   background: linear-gradient(90deg, var(--light-navy), var(--dark-slate));
   color: var(--green);
 }
+
+.auth-link {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--light-slate);
+}
