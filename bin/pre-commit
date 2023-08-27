@@ -4,9 +4,17 @@ echo "<<<<<<<< PRE-COMMIT >>>>>>>>"
 
 # run lint
 npm run lint
+if [ $? -ne 0 ]
+then
+exit 1
+fi
 
 # run test
 npm run coverage
+if [ $? -ne 0 ]
+then
+exit 1
+fi
 
 echo -e "\x1B[1;32m✅ Lint ran successfully\x1B[0m"
 echo -e "\x1B[1;32m✅ Test ran successfully\x1B[0m"
