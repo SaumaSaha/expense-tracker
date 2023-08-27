@@ -1,41 +1,28 @@
-class UserDataManager {
-  #userData;
+class UserDataStorage {
   #storagePath;
   #fileSystem;
 
   constructor(storagePath, fileSystem) {
     this.#storagePath = storagePath;
     this.#fileSystem = fileSystem;
-    this.#userData = {};
   }
 
   #isFilePresent() {
     return this.#fileSystem.existsSync(this.#storagePath);
   }
 
-  isUsernamePresent(name) {
-    return name in this.#userData;
-  }
-
-  store(username, password, userId, onSuccess) {
-    this.#userData[username] = { username, password, userId };
-
-    this.#fileSystem.writeFile(
-      this.#storagePath,
-      JSON.stringify(this.#userData),
-      onSuccess
-    );
+  store(data, onSuccess) {
+    this.#fileSystem.writeFile(this.#storagePath, JSON.stringify(data), onSuccess);
   }
 
   init() {
     if (this.#isFilePresent()) {
       const data = this.#fileSystem.readFileSync(this.#storagePath, "utf-8");
-      this.#userData = JSON.parse(data);
-      return;
+      return JSON.parse(data);
     }
 
-    this.#fileSystem.writeFileSync(this.#storagePath, JSON.stringify(this.#userData));
+    this.#fileSystem.writeFileSync(this.#storagePath, JSON.stringify([]));
   }
 }
 
-module.exports = UserDataManager;
+module.exports = UserDataStorage;

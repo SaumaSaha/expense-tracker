@@ -3,18 +3,20 @@ const request = require("supertest");
 
 const Expenses = require("../src/models/expenses");
 const IdGenerator = require("../src/models/id-generator");
-const UserDataManager = require("../src/database-managers/user-data-manager");
+const UserDataStorage = require("../src/database-managers/user-data-manager");
 
 const { createApp } = require("../src/app");
 const { createExpenses } = require("../src/expense-creator");
 
-const testData = require("../test-data/expenses.json");
+const testExpensesData = require("../test-data/expenses.json");
+const { createUsers } = require("../src/user-creator");
+const Users = require("../src/models/users");
 const TEST_STORAGE = "./test-data/test-user-storage.json";
 
 describe("App", () => {
   describe("GET /", () => {
     it("should give the home page content", (_, done) => {
-      const app = createApp(null, null, null);
+      const app = createApp(null, null, null, null);
 
       request(app)
         .get("/")
@@ -26,7 +28,7 @@ describe("App", () => {
 
   describe("GET /public/add-expense.html", () => {
     it("should give the add expense page content", (_, done) => {
-      const app = createApp(null, null, null);
+      const app = createApp(null, null, null, null);
 
       request(app)
         .get("/pages/add-expense.html")
@@ -39,15 +41,15 @@ describe("App", () => {
   describe("GET /expenses", () => {
     it("should get the expenses", (_, done) => {
       const idGenerator = new IdGenerator();
-      const testExpenses = createExpenses(testData, idGenerator);
+      const testExpenses = createExpenses(testExpensesData, idGenerator);
       const expenses = new Expenses(testExpenses);
-      const app = createApp(expenses, idGenerator, null);
+      const app = createApp(null, expenses, idGenerator, null);
 
       request(app)
         .get("/expenses")
         .expect(200)
         .expect("content-type", /application\/json/)
-        .expect({ details: testData, totalExpense: 8000 })
+        .expect({ details: testExpensesData, totalExpense: 8000 })
         .end(done);
     });
   });
@@ -56,7 +58,7 @@ describe("App", () => {
     it("should post an expense", (_, done) => {
       const expenses = new Expenses();
       const idGenerator = new IdGenerator();
-      const app = createApp(expenses, idGenerator, null);
+      const app = createApp(null, expenses, idGenerator, null);
 
       request(app)
         .post("/expenses")
@@ -70,7 +72,7 @@ describe("App", () => {
 
   describe("GET /pages/sign-up.html", () => {
     it("should give the sign up page", (_, done) => {
-      const app = createApp(null, null, null);
+      const app = createApp(null, null, null, null);
 
       request(app)
         .get("/pages/sign-up.html")
@@ -90,10 +92,10 @@ describe("App", () => {
       };
 
       const idGenerator = new IdGenerator();
-      const userDataManager = new UserDataManager(TEST_STORAGE, fs);
-      userDataManager.init();
+      const userDataStorage = new UserDataStorage(TEST_STORAGE, fs);
+      const users = new Users();
 
-      const app = createApp(null, idGenerator, userDataManager);
+      const app = createApp(users, null, idGenerator, userDataStorage);
 
       request(app)
         .post("/sign-up")
@@ -108,22 +110,54 @@ describe("App", () => {
         existsSync: context.mock.fn(() => true),
         readFileSync: context.mock.fn(() => {
           // eslint-disable-next-line quotes
-          return '{"sauma": { "username": "sauma", "password": "123456" }}';
+          return '[{"username": "sauma", "password": "123456", "id":1 }]';
         }),
         writeFileSync: context.mock.fn(),
         writeFile: context.mock.fn(),
       };
 
       const idGenerator = new IdGenerator();
-      const userDataManager = new UserDataManager(TEST_STORAGE, fs);
-      userDataManager.init();
-      const app = createApp(null, idGenerator, userDataManager);
+      const userDataStorage = new UserDataStorage(TEST_STORAGE, fs);
+      const restoredUsersDetails = userDataStorage.init();
+      const restoredUsers = createUsers(restoredUsersDetails, idGenerator);
+      const users = new Users(restoredUsers);
+
+      const app = createApp(users, null, idGenerator, userDataStorage);
 
       request(app)
         .post("/sign-up")
         .send({ name: "sauma", password: "123456" })
         .expect(403)
         .expect({ message: "Username Already Exists" })
+        .end(done);
+    });
+  });
+
+  describe("POST /sign-in", () => {
+    it("should sign the user in if credentials are valid", (context, done) => {
+      const fs = {
+        existsSync: context.mock.fn(() => true),
+        readFileSync: context.mock.fn(() => {
+          // eslint-disable-next-line quotes
+          return '[{ "name": "sauma", "password": "123456", "id": 1 }]';
+        }),
+        writeFileSync: context.mock.fn(),
+        writeFile: context.mock.fn(),
+      };
+
+      const idGenerator = new IdGenerator();
+      const userDataStorage = new UserDataStorage(TEST_STORAGE, fs);
+      const restoredUsersDetails = userDataStorage.init();
+      const restoredUsers = createUsers(restoredUsersDetails, idGenerator);
+      const users = new Users(restoredUsers);
+
+      const app = createApp(users, null, idGenerator, userDataStorage);
+
+      request(app)
+        .post("/sign-in")
+        .send({ name: "sauma", password: "123456" })
+        .expect(200)
+        .expect("set-cookie", "name=sauma; Path=/")
         .end(done);
     });
   });

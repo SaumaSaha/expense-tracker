@@ -58,8 +58,10 @@
   gap: 40px;
 }
 
-#auth-section > * {
+#auth-section * {
   cursor: pointer;
+  text-decoration: none;
+  color: var(--green);
 }
 
 #page-content {

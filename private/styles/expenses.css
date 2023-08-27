@@ -20,6 +20,7 @@
 
 body {
   background-color: var(--navy);
+  cursor: default;
 }
 
 #page-header-section {
@@ -116,7 +117,13 @@ body {
 #nav-buttons > * {
   padding: 0 10px;
   height: 40px;
+  border: 2px solid var(--green);
   border-radius: 7px;
+
+  cursor: pointer;
+
+  color: var(--green);
+  background-color: var(--light-navy);
 }
 
 #expenses {
@@ -137,4 +144,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+.expense > * {
+  width: 250px;
+  text-align: center;
 }

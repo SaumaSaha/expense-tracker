@@ -1,4 +1,24 @@
 const Expense = require("../models/expense");
+const User = require("../models/user");
+
+const sendSignUpSuccessful = (_, res) => {
+  const message = "Sign Up successful";
+  res.status(201).json({ message });
+};
+
+const sendUsernameExists = (_, res) => {
+  const message = "Username Already Exists";
+  res.status(403).json({ message });
+};
+
+const sendValidLogin = (req, res) => {
+  const { name } = req.body;
+  res.status(200).cookie("name", name).send();
+};
+
+const sendInvalidLoginCredentials = (_, res) => {
+  res.status(403).send();
+};
 
 const handleAddExpense = (req, res) => {
   const { expenses, idGenerator } = req.app;
@@ -19,24 +39,29 @@ const handleGetExpenses = (req, res) => {
 };
 
 const handleSignUp = (req, res) => {
-  const { userDataManager, idGenerator } = req.app;
+  const { userDataStorage, idGenerator, users } = req.app;
   const { name, password } = req.body;
 
-  let message = "User Already Exists";
-
-  const onSuccess = () => {
-    message = "Sign Up successful";
-    res.status(201).json({ message });
-  };
-
-  if (userDataManager.isUsernamePresent(name)) {
-    message = "Username Already Exists";
-    res.status(403).json({ message });
+  if (users.isUsernameExists(name)) {
+    sendUsernameExists(req, res);
     return;
   }
 
   const userId = idGenerator.generateUserId();
-  userDataManager.store(name, password, userId, onSuccess);
+  const user = new User(name, password, userId);
+  users.add(user);
+  userDataStorage.store(users.details, () => sendSignUpSuccessful(req, res));
 };
 
-module.exports = { handleAddExpense, handleGetExpenses, handleSignUp };
+const handleSignIn = (req, res) => {
+  const { users } = req.app;
+  const { name, password } = req.body;
+
+  if (users.isValidLoginCredentials(name, password)) {
+    sendValidLogin(req, res);
+    return;
+  }
+  sendInvalidLoginCredentials(req, res);
+};
+
+module.exports = { handleAddExpense, handleGetExpenses, handleSignUp, handleSignIn };

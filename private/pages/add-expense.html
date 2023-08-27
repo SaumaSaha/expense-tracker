@@ -18,6 +18,7 @@
             id="expense-title-text-box"
             class="input-box"
             placeholder="Enter Title"
+            required
           />
         </fieldset>
         <fieldset id="expense-amount-field" class="field">
@@ -28,11 +29,18 @@
             id="expense-amount-text-box"
             class="input-box"
             placeholder="Enter Amount"
+            required
           />
         </fieldset>
         <fieldset id="expense-date-field" class="field">
           <legend class="field-title">Date</legend>
-          <input type="date" name="date" id="expense-date-text-box" class="input-box" />
+          <input
+            type="date"
+            name="date"
+            id="expense-date-text-box"
+            class="input-box"
+            required
+          />
         </fieldset>
         <div id="buttons-section">
           <input type="reset" value="Clear" class="button" />
