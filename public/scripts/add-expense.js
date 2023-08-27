@@ -6,7 +6,7 @@ const postExpense = () => {
   const request = {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ title, amount, date }),
+    body: JSON.stringify({ title, amount: parseInt(amount), date }),
   };
 
   fetch("/expenses", request).then((res) => {

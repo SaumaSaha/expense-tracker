@@ -47,7 +47,7 @@ describe("App", () => {
         .get("/expenses")
         .expect(200)
         .expect("content-type", /application\/json/)
-        .expect(testData)
+        .expect({ details: testData, totalExpense: 8000 })
         .end(done);
     });
   });
@@ -63,7 +63,7 @@ describe("App", () => {
         .send({ title: "Rent", amount: 6000, date: "2023-08-27" })
         .expect(201)
         .expect("content-type", /application\/json/)
-        .expect({ expenseId: 1 })
+        .expect({ expenseId: 1, totalExpense: 6000 })
         .end(done);
     });
   });

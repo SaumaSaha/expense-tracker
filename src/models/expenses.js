@@ -9,8 +9,16 @@ class Expenses {
     this.#expenses.push(expense);
   }
 
+  calculateTotalExpense() {
+    return this.#expenses.reduce((totalExpense, expense) => {
+      return totalExpense + expense.details.amount;
+    }, 0);
+  }
+
   get details() {
-    return this.#expenses.map((expense) => expense.details);
+    const details = this.#expenses.map((expense) => expense.details);
+    const totalExpense = this.calculateTotalExpense();
+    return { details, totalExpense };
   }
 }
 

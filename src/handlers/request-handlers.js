@@ -7,8 +7,9 @@ const handleAddExpense = (req, res) => {
   const expenseId = idGenerator.generateExpenseId();
   const expense = new Expense(title, amount, date, expenseId);
   expenses.add(expense);
+  const totalExpense = expenses.calculateTotalExpense();
 
-  res.status(201).json({ expenseId });
+  res.status(201).json({ expenseId, totalExpense });
 };
 
 const handleGetExpenses = (req, res) => {

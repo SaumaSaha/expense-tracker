@@ -33,9 +33,11 @@ const createExpenseElement = ({ title, amount, date }) => {
 };
 
 // eslint-disable-next-line no-unused-vars
-const render = (expensesDetails) => {
-  const expenses = document.querySelector("#expenses");
-  const expenseElements = expensesDetails.map(createExpenseElement);
+const render = ({ details, totalExpense }) => {
+  const expensesSection = document.querySelector("#expenses");
+  const totalExpenseElement = document.querySelector("#total-expense");
+  totalExpenseElement.innerText = totalExpense;
+  const expenseElements = details.map(createExpenseElement);
 
-  expenses.append(...expenseElements);
+  expensesSection.append(...expenseElements);
 };
