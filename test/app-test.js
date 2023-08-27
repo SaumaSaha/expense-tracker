@@ -3,14 +3,15 @@ const request = require("supertest");
 
 const Expenses = require("../src/models/expenses");
 const IdGenerator = require("../src/models/id-generator");
-const UserDataStorage = require("../src/database-managers/user-data-manager");
+const UserDataStorage = require("../src/database/user-data-storage");
 
 const { createApp } = require("../src/app");
 const { createExpenses } = require("../src/expense-creator");
 
-const testExpensesData = require("../test-data/expenses.json");
+const testExpensesData = require("../test-data/test-expenses.json");
 const { createUsers } = require("../src/user-creator");
 const Users = require("../src/models/users");
+const User = require("../src/models/user");
 const TEST_STORAGE = "./test-data/test-user-storage.json";
 
 describe("App", () => {
@@ -28,10 +29,13 @@ describe("App", () => {
 
   describe("GET /public/add-expense.html", () => {
     it("should give the add expense page content", (_, done) => {
-      const app = createApp(null, null, null, null);
+      const user = new User("sauma", "1234", 1);
+      const users = new Users([user]);
+      const app = createApp(users, null, null, null);
 
       request(app)
         .get("/pages/add-expense.html")
+        .set("cookie", "name=sauma")
         .expect(200)
         .expect("content-type", /text\/html/)
         .end(done);
@@ -43,10 +47,13 @@ describe("App", () => {
       const idGenerator = new IdGenerator();
       const testExpenses = createExpenses(testExpensesData, idGenerator);
       const expenses = new Expenses(testExpenses);
-      const app = createApp(null, expenses, idGenerator, null);
+      const user = new User("sauma", "1234", 1);
+      const users = new Users([user]);
+      const app = createApp(users, expenses, idGenerator, null);
 
       request(app)
         .get("/expenses")
+        .set("cookie", "name=sauma")
         .expect(200)
         .expect("content-type", /application\/json/)
         .expect({ details: testExpensesData, totalExpense: 8000 })
@@ -58,11 +65,14 @@ describe("App", () => {
     it("should post an expense", (_, done) => {
       const expenses = new Expenses();
       const idGenerator = new IdGenerator();
-      const app = createApp(null, expenses, idGenerator, null);
+      const user = new User("sauma", "1234", 1);
+      const users = new Users([user]);
+      const app = createApp(users, expenses, idGenerator, null);
 
       request(app)
         .post("/expenses")
         .send({ title: "Rent", amount: 6000, date: "2023-08-27" })
+        .set("cookie", "name=sauma")
         .expect(201)
         .expect("content-type", /application\/json/)
         .expect({ expenseId: 1, totalExpense: 6000 })
@@ -83,7 +93,7 @@ describe("App", () => {
   });
 
   describe("POST /sign-up", () => {
-    it("should post the user name and password", (context, done) => {
+    it("should sign up user with the user name and password", (context, done) => {
       const fs = {
         existsSync: context.mock.fn(() => false),
         readFileSync: context.mock.fn(),
@@ -210,6 +220,33 @@ describe("App", () => {
         .post("/sign-in")
         .send({ name: "sourav", password: "123456" })
         .expect(403)
+        .end(done);
+    });
+  });
+
+  describe("GET /validate-username", () => {
+    it("should get the user name back if the name in the cookie is valid", (_, done) => {
+      const user = new User("sauma", "1234", 1);
+      const users = new Users([user]);
+      const app = createApp(users, null, null, null);
+
+      request(app)
+        .get("/validate-username")
+        .set("cookie", "name=sauma")
+        .expect(200)
+        .expect({ name: "sauma" })
+        .end(done);
+    });
+
+    it("should get 401 if the name in the cookie is not valid", (_, done) => {
+      const user = new User("sauma", "1234", 1);
+      const users = new Users([user]);
+      const app = createApp(users, null, null, null);
+
+      request(app)
+        .get("/validate-username")
+        .set("cookie", "name=milan")
+        .expect(401)
         .end(done);
     });
   });

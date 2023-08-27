@@ -63,4 +63,21 @@ const handleSignIn = (req, res) => {
   sendInvalidLoginCredentials(req, res);
 };
 
-module.exports = { handleAddExpense, handleGetExpenses, handleSignUp, handleSignIn };
+const handleValidateUsername = (req, res) => {
+  const { users } = req.app;
+  const { name } = req.cookies;
+
+  if (users.isUsernameExists(name)) {
+    res.send({ name });
+    return;
+  }
+
+  res.status(401).send();
+};
+module.exports = {
+  handleAddExpense,
+  handleGetExpenses,
+  handleSignUp,
+  handleSignIn,
+  handleValidateUsername,
+};
