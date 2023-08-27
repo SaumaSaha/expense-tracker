@@ -20,13 +20,11 @@ const postExpense = () => {
 };
 
 const main = () => {
-  const addExpenseBtn = document.querySelector("#add-expense-btn");
   const form = document.querySelector("#add-expense-form");
 
   form.onsubmit = (event) => {
     event.preventDefault();
+    postExpense();
   };
-
-  addExpenseBtn.onclick = () => postExpense();
 };
 window.onload = main;
