@@ -1,5 +1,5 @@
 const submitSignInForm = () => {
-  const name = document.querySelector("#name-text-box").value;
+  const name = document.querySelector("#name-text-box").value.toUpperCase();
   const password = document.querySelector("#password-text-box").value;
 
   const request = {
@@ -10,7 +10,7 @@ const submitSignInForm = () => {
 
   fetch("/sign-in", request).then((res) => {
     if (res.status === 200) {
-      location.replace("/index.html");
+      location.replace("/");
       return;
     }
     alert("Bad Credentials");

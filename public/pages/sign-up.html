@@ -7,33 +7,44 @@
   </head>
   <body>
     <main id="sign-up-page" class="page">
-      <form id="sign-up-form" class="page-form">
-        <header id="form-header-section"><h1 id="form-header">Sign Up</h1></header>
-        <fieldset id="name-field" class="field">
-          <legend class="field-title">Name</legend>
-          <input
-            type="text"
-            name="name"
-            id="name-text-box"
-            placeholder="Enter your name"
-            class="input-box"
-          />
-        </fieldset>
-        <fieldset id="password-field" class="field">
-          <legend class="field-title">Password</legend>
-          <input
-            type="password"
-            name="password"
-            id="password-text-box"
-            placeholder="Enter password"
-            class="input-box"
-          />
-        </fieldset>
-        <div id="buttons-section">
-          <input type="reset" value="Clear" class="button" />
-          <input type="submit" value="Submit" class="button" id="submit-btn" />
-        </div>
-      </form>
+      <header id="page-header-section">
+        <a href="/">
+          <h1 id="page-header">＄ Expense Tracker</h1>
+        </a>
+      </header>
+      <article id="form-container">
+        <form id="sign-up-form" class="page-form">
+          <header id="form-header-section"><h1 id="form-header">Sign Up</h1></header>
+          <fieldset id="name-field" class="field">
+            <legend class="field-title">Name</legend>
+            <input
+              type="text"
+              name="name"
+              id="name-text-box"
+              placeholder="Enter your name"
+              class="input-box"
+            />
+          </fieldset>
+          <fieldset id="password-field" class="field">
+            <legend class="field-title">Password</legend>
+            <input
+              type="password"
+              name="password"
+              id="password-text-box"
+              placeholder="Enter password"
+              class="input-box"
+            />
+          </fieldset>
+          <div id="buttons-section">
+            <input type="reset" value="Clear" class="button" />
+            <input type="submit" value="Submit" class="button" id="submit-btn" />
+          </div>
+          <span>
+            Already have an account?
+            <a href="/pages/sign-in.html" class="auth-link">Sign In</a>
+          </span>
+        </form>
+      </article>
     </main>
   </body>
 </html>

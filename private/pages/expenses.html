@@ -9,23 +9,21 @@
   <body>
     <main id="page">
       <header id="page-header-section">
-        <h1 id="page-header">＄ Expense Tracker</h1>
+        <a href="/"><h1 id="page-header">＄ Expense Tracker</h1></a>
         <ul id="auth-section">
           <li><a href="/sign-out" class="auth-link">Sign Out</a></li>
         </ul>
       </header>
       <article id="main-content">
-        <article id="total-expense-section">
-          <h1 id="total-expense-header">
-            Total Expense: <span id="total-expense"></span>
-          </h1>
-        </article>
         <section id="expense-section">
           <header id="expense-section-header">
             <h1>Expenses</h1>
+            <h1 id="total-expense-header">
+              Total Expense: ₹<span id="total-expense"></span>
+            </h1>
           </header>
           <nav id="nav-section">
-            <p>Recent Expenses</p>
+            <span>Recent Expenses</span>
             <div id="nav-buttons">
               <input type="button" value="Add Expense" id="add-expense-btn" />
             </div>

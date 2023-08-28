@@ -23,6 +23,10 @@ body {
   cursor: default;
 }
 
+a {
+  text-decoration: none;
+}
+
 #page-header-section {
   padding: 10px;
   margin: 10px;
@@ -41,12 +45,19 @@ body {
 #page-header {
   padding: 10px;
   font-size: 2em;
+  color: var(--green);
 }
 
 #auth-section {
   padding: 10px;
   margin: 10px;
+
   list-style-type: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 40px;
 }
 
 .auth-link {
@@ -64,16 +75,11 @@ body {
   justify-content: center;
 }
 
-#total-expense-header {
-  font-size: 1.5em;
-  color: var(--green);
-}
-
 #expense-section {
   padding: 10px;
   margin: 10px;
   width: 800px;
-  aspect-ratio: 1;
+  height: 800px;
 
   border-radius: 0.5em;
   border: 1px solid var(--green);
@@ -88,17 +94,26 @@ body {
 }
 
 #expense-section-header {
+  padding: 20px;
   width: 100%;
-  height: 3em;
+  height: 80px;
   text-align: center;
 
   border-radius: 0.5em;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
   background-color: var(--dark-slate);
   color: var(--green);
+}
+
+#expense-section-header > * {
+  font-size: 1.5em;
+}
+
+#total-expense {
+  font-size: 1em;
 }
 
 #nav-section {
@@ -141,6 +156,8 @@ body {
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+
+  overflow: scroll;
 }
 
 .expense {

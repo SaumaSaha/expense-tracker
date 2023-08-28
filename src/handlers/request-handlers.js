@@ -85,7 +85,7 @@ const handleValidateUsername = (req, res) => {
 };
 
 const handleSignOut = (_, res) => {
-  res.clearCookie("name").redirect(303, "/index.html");
+  res.clearCookie("name").redirect(303, "/");
 };
 
 module.exports = {

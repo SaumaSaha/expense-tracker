@@ -16,7 +16,7 @@ const createTitleElement = (title) => {
 };
 const createAmountElement = (amount) => {
   const amountElement = document.createElement("span");
-  amountElement.innerText = amount;
+  amountElement.innerText = `₹ ${amount}`;
 
   return amountElement;
 };
