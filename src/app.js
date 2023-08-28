@@ -1,12 +1,12 @@
 const express = require("express");
+const { handleAddExpense, handleGetExpenses } = require("./handlers/expense-handlers");
+
 const {
-  handleAddExpense,
-  handleGetExpenses,
   handleSignUp,
   handleSignIn,
   handleValidateUsername,
   handleSignOut,
-} = require("./handlers/request-handlers");
+} = require("./handlers/auth-handlers");
 
 const { logRequest } = require("./middlewares/request-logger");
 const { parseCookies } = require("./middlewares/cookie-parser");
