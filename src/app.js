@@ -30,12 +30,12 @@ const addPrivateHandlers = (app) => {
   app.use(express.static("private"));
 };
 
-const createApp = (users, expenses, idGenerator, userDataStorage) => {
+const createApp = (users, expenses, idGenerator, dataStorage) => {
   const app = express();
   app.users = users;
   app.expenses = expenses;
   app.idGenerator = idGenerator;
-  app.userDataStorage = userDataStorage;
+  app.dataStorage = dataStorage;
 
   addPublicHandlers(app);
   addPrivateHandlers(app);

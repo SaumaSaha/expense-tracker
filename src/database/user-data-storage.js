@@ -1,28 +1,60 @@
-class UserDataStorage {
-  #storagePath;
+class DataStorage {
+  #userDataStoragePath;
+  #expensesStoragePath;
   #fileSystem;
 
-  constructor(storagePath, fileSystem) {
-    this.#storagePath = storagePath;
+  constructor(userDataStoragePath, expensesStoragePath, fileSystem) {
+    this.#userDataStoragePath = userDataStoragePath;
+    this.#expensesStoragePath = expensesStoragePath;
     this.#fileSystem = fileSystem;
   }
 
-  #isFilePresent() {
-    return this.#fileSystem.existsSync(this.#storagePath);
+  #isFilePresent(file) {
+    return this.#fileSystem.existsSync(file);
   }
 
-  store(data, onSuccess) {
-    this.#fileSystem.writeFile(this.#storagePath, JSON.stringify(data), onSuccess);
+  storeUsers(data, onSuccess) {
+    this.#fileSystem.writeFile(
+      this.#userDataStoragePath,
+      JSON.stringify(data),
+      onSuccess
+    );
   }
 
-  init() {
-    if (this.#isFilePresent()) {
-      const data = this.#fileSystem.readFileSync(this.#storagePath, "utf-8");
+  storeExpenses(data, onSuccess) {
+    this.#fileSystem.writeFile(
+      this.#expensesStoragePath,
+      JSON.stringify(data),
+      onSuccess
+    );
+  }
+
+  #restoreUsers() {
+    if (this.#isFilePresent(this.#userDataStoragePath)) {
+      const data = this.#fileSystem.readFileSync(this.#userDataStoragePath, "utf-8");
       return JSON.parse(data);
     }
 
-    this.#fileSystem.writeFileSync(this.#storagePath, JSON.stringify([]));
+    this.#fileSystem.writeFileSync(this.#userDataStoragePath, JSON.stringify([]));
+    return [];
+  }
+
+  #restoreExpenses() {
+    if (this.#isFilePresent(this.#expensesStoragePath)) {
+      const data = this.#fileSystem.readFileSync(this.#expensesStoragePath, "utf-8");
+      return JSON.parse(data);
+    }
+
+    this.#fileSystem.writeFileSync(this.#expensesStoragePath, JSON.stringify([]));
+    return [];
+  }
+
+  init() {
+    const restoredUsersDetails = this.#restoreUsers();
+    const restoredExpensesDetails = this.#restoreExpenses();
+
+    return { restoredUsersDetails, restoredExpensesDetails };
   }
 }
 
-module.exports = UserDataStorage;
+module.exports = DataStorage;

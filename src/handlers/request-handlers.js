@@ -38,7 +38,7 @@ const handleGetExpenses = (req, res) => {
 };
 
 const handleSignUp = (req, res) => {
-  const { userDataStorage, idGenerator, users } = req.app;
+  const { dataStorage, idGenerator, users } = req.app;
   const { name, password } = req.body;
 
   if (users.isUsernameExists(name)) {
@@ -49,7 +49,7 @@ const handleSignUp = (req, res) => {
   const userId = idGenerator.generateUserId();
   const user = new User(name, password, userId);
   users.add(user);
-  userDataStorage.store(users.details, () => sendSignUpSuccessful(req, res));
+  dataStorage.storeUsers(users.details, () => sendSignUpSuccessful(req, res));
 };
 
 const handleSignIn = (req, res) => {

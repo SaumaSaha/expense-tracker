@@ -5,19 +5,25 @@ const IdGenerator = require("./src/models/id-generator");
 const UserDataStorage = require("./src/database/user-data-storage");
 const Users = require("./src/models/users");
 const { createUsers } = require("./src/user-creator");
-const STORAGE_PATH = "./user-data.json";
+const USER_DATA_STORAGE_PATH = "./user-data.json";
+const EXPENSES_DATA_STORAGE_PATH = "./expenses-data.json";
 
 const main = () => {
   const idGenerator = new IdGenerator();
-  const userDataStorage = new UserDataStorage(STORAGE_PATH, fs);
+  const dataStorage = new UserDataStorage(
+    USER_DATA_STORAGE_PATH,
+    EXPENSES_DATA_STORAGE_PATH,
+    fs
+  );
 
-  const restoredUserData = userDataStorage.init();
-  const restoredUsers = createUsers(restoredUserData, idGenerator);
+  const { restoredUsersDetails, restoredExpensesDetails } = dataStorage.init();
+  const restoredUsers = createUsers(restoredUsersDetails, idGenerator);
+  const restoredExpenses = createUsers(restoredExpensesDetails, idGenerator);
 
   const users = new Users(restoredUsers);
-  const expenses = new Expenses();
+  const expenses = new Expenses(restoredExpenses);
 
-  const app = createApp(users, expenses, idGenerator, userDataStorage);
+  const app = createApp(users, expenses, idGenerator, dataStorage);
   const port = 8000;
 
   app.listen(port, () => console.log("App listening on port:", port));

@@ -3,7 +3,7 @@ const request = require("supertest");
 
 const Expenses = require("../src/models/expenses");
 const IdGenerator = require("../src/models/id-generator");
-const UserDataStorage = require("../src/database/user-data-storage");
+const DataStorage = require("../src/database/user-data-storage");
 
 const { createApp } = require("../src/app");
 const { createExpenses } = require("../src/expense-creator");
@@ -12,7 +12,8 @@ const testExpensesData = require("../test-data/test-expenses.json");
 const { createUsers } = require("../src/user-creator");
 const Users = require("../src/models/users");
 const User = require("../src/models/user");
-const TEST_STORAGE = "./test-data/test-user-storage.json";
+const TEST_USER_STORAGE = "./test-data/test-user-storage.json";
+const TEST_EXPENSES_STORAGE = "./test-data/test-expenses-storage.json";
 
 describe("App", () => {
   describe("GET /", () => {
@@ -117,11 +118,11 @@ describe("App", () => {
       };
 
       const idGenerator = new IdGenerator();
-      const userDataStorage = new UserDataStorage(TEST_STORAGE, fs);
-      userDataStorage.init();
+      const dataStorage = new DataStorage(TEST_USER_STORAGE, TEST_EXPENSES_STORAGE, fs);
+      dataStorage.init();
       const users = new Users();
 
-      const app = createApp(users, null, idGenerator, userDataStorage);
+      const app = createApp(users, null, idGenerator, dataStorage);
 
       request(app)
         .post("/sign-up")
@@ -143,12 +144,12 @@ describe("App", () => {
       };
 
       const idGenerator = new IdGenerator();
-      const userDataStorage = new UserDataStorage(TEST_STORAGE, fs);
-      const restoredUsersDetails = userDataStorage.init();
+      const dataStorage = new DataStorage(TEST_USER_STORAGE, TEST_EXPENSES_STORAGE, fs);
+      const { restoredUsersDetails } = dataStorage.init();
       const restoredUsers = createUsers(restoredUsersDetails, idGenerator);
       const users = new Users(restoredUsers);
 
-      const app = createApp(users, null, idGenerator, userDataStorage);
+      const app = createApp(users, null, idGenerator, dataStorage);
 
       request(app)
         .post("/sign-up")
@@ -171,12 +172,12 @@ describe("App", () => {
       };
 
       const idGenerator = new IdGenerator();
-      const userDataStorage = new UserDataStorage(TEST_STORAGE, fs);
-      const restoredUsersDetails = userDataStorage.init();
+      const dataStorage = new DataStorage(TEST_USER_STORAGE, TEST_EXPENSES_STORAGE, fs);
+      const { restoredUsersDetails } = dataStorage.init();
       const restoredUsers = createUsers(restoredUsersDetails, idGenerator);
       const users = new Users(restoredUsers);
 
-      const app = createApp(users, null, idGenerator, userDataStorage);
+      const app = createApp(users, null, idGenerator, dataStorage);
 
       request(app)
         .post("/sign-in")
@@ -198,12 +199,12 @@ describe("App", () => {
       };
 
       const idGenerator = new IdGenerator();
-      const userDataStorage = new UserDataStorage(TEST_STORAGE, fs);
-      const restoredUsersDetails = userDataStorage.init();
+      const dataStorage = new DataStorage(TEST_USER_STORAGE, TEST_EXPENSES_STORAGE, fs);
+      const { restoredUsersDetails } = dataStorage.init();
       const restoredUsers = createUsers(restoredUsersDetails, idGenerator);
       const users = new Users(restoredUsers);
 
-      const app = createApp(users, null, idGenerator, userDataStorage);
+      const app = createApp(users, null, idGenerator, dataStorage);
 
       request(app)
         .post("/sign-in")
@@ -224,12 +225,12 @@ describe("App", () => {
       };
 
       const idGenerator = new IdGenerator();
-      const userDataStorage = new UserDataStorage(TEST_STORAGE, fs);
-      const restoredUsersDetails = userDataStorage.init();
+      const dataStorage = new DataStorage(TEST_USER_STORAGE, TEST_EXPENSES_STORAGE, fs);
+      const { restoredUsersDetails } = dataStorage.init();
       const restoredUsers = createUsers(restoredUsersDetails, idGenerator);
       const users = new Users(restoredUsers);
 
-      const app = createApp(users, null, idGenerator, userDataStorage);
+      const app = createApp(users, null, idGenerator, dataStorage);
 
       request(app)
         .post("/sign-in")
