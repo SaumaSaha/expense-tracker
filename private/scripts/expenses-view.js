@@ -2,9 +2,33 @@ const addExpenseClass = (listItem) => {
   listItem.classList.add("expense");
 };
 
+const getDateDiff = (date) => {
+  const [year, month, day] = date.split("-");
+  const [currentDay, currentMonth, currentYear] = new Date()
+    .toLocaleDateString()
+    .split("/");
+
+  return (
+    new Date(currentYear, +currentMonth - 1, currentDay) - new Date(year, +month - 1, day)
+  );
+};
+
+const generateDateString = (date) => {
+  const dateStringLookUp = {
+    86400000: "Yesterday",
+    0: "Today",
+  };
+
+  const diff = getDateDiff(date);
+  console.log(diff);
+  return dateStringLookUp[diff] || date;
+};
+
 const createDateElement = (date) => {
   const dateElement = document.createElement("span");
-  dateElement.innerText = date;
+  const dateString = generateDateString(date);
+
+  dateElement.innerText = dateString;
 
   return dateElement;
 };
