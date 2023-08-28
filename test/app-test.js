@@ -78,12 +78,21 @@ describe("App", () => {
   });
 
   describe("POST /expenses", () => {
-    it("should post an expense", (_, done) => {
+    it("should post an expense", (context, done) => {
+      const fs = {
+        existsSync: context.mock.fn(() => false),
+        readFileSync: context.mock.fn(),
+        writeFileSync: context.mock.fn(),
+        writeFile: context.mock.fn((path, data, cb) => cb()),
+      };
+
       const expenses = new Expenses();
       const idGenerator = new IdGenerator();
+      const dataStorage = new DataStorage(TEST_USER_STORAGE, TEST_EXPENSES_STORAGE, fs);
+      dataStorage.init();
       const user = new User("sauma", "1234", 1);
       const users = new Users([user]);
-      const app = createApp(users, expenses, idGenerator, null);
+      const app = createApp(users, expenses, idGenerator, dataStorage);
 
       request(app)
         .post("/expenses")
