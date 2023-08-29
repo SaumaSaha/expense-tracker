@@ -20,12 +20,14 @@
   font-size: 20px;
 }
 
+a {
+  text-decoration: none;
+}
+
 #add-expense-page {
+  padding: 10px;
   height: 100%;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 #bg-image {
@@ -38,6 +40,34 @@
   background-position: center;
   filter: blur(10px);
   z-index: -1;
+}
+
+#page-header-section {
+  padding: 10px;
+  width: 100%;
+  height: 70px;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-radius: 0.5em;
+  background-color: var(--dark-slate);
+}
+
+#page-header {
+  padding: 10px;
+  font-size: 2em;
+  cursor: pointer;
+  color: var(--green);
+}
+
+#add-expense-form-container {
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #add-expense-form {
@@ -57,9 +87,23 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+#back-btn {
+  font-size: 30px;
+
+  border: none;
+  cursor: pointer;
+
+  background-color: transparent;
+  color: var(--green);
+}
+
 #form-header-section {
   width: 100%;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
 #form-header {

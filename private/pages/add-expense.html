@@ -6,47 +6,57 @@
     <script src="/scripts/add-expense.js"></script>
   </head>
   <body>
+    <div id="bg-image"></div>
     <main id="add-expense-page">
-      <div id="bg-image"></div>
-      <form id="add-expense-form">
-        <header id="form-header-section"><h1 id="form-header">Add Expense</h1></header>
-        <fieldset id="expense-title-field" class="field">
-          <legend class="field-title">Title</legend>
-          <input
-            type="text"
-            name="title"
-            id="expense-title-text-box"
-            class="input-box"
-            placeholder="Enter Title"
-            required
-          />
-        </fieldset>
-        <fieldset id="expense-amount-field" class="field">
-          <legend class="field-title">Amount</legend>
-          <input
-            type="number"
-            name="amount"
-            id="expense-amount-text-box"
-            class="input-box"
-            placeholder="Enter Amount In Rs"
-            required
-          />
-        </fieldset>
-        <fieldset id="expense-date-field" class="field">
-          <legend class="field-title">Date</legend>
-          <input
-            type="date"
-            name="date"
-            id="expense-date-text-box"
-            class="input-box"
-            required
-          />
-        </fieldset>
-        <div id="buttons-section">
-          <input type="reset" value="Clear" class="button" />
-          <input type="submit" value="Add" class="button" id="add-expense-btn" />
-        </div>
-      </form>
+      <header id="page-header-section">
+        <a href="/">
+          <h1 id="page-header">＄ Expense Tracker</h1>
+        </a>
+      </header>
+      <article id="add-expense-form-container">
+        <form id="add-expense-form">
+          <header id="form-header-section">
+            <input type="button" value="⬅" id="back-btn" />
+            <h1 id="form-header">Add Expense</h1>
+          </header>
+          <fieldset id="expense-title-field" class="field">
+            <legend class="field-title">Title</legend>
+            <input
+              type="text"
+              name="title"
+              id="expense-title-text-box"
+              class="input-box"
+              placeholder="Enter Title"
+              required
+            />
+          </fieldset>
+          <fieldset id="expense-amount-field" class="field">
+            <legend class="field-title">Amount</legend>
+            <input
+              type="number"
+              name="amount"
+              id="expense-amount-text-box"
+              class="input-box"
+              placeholder="Enter Amount In Rs"
+              required
+            />
+          </fieldset>
+          <fieldset id="expense-date-field" class="field">
+            <legend class="field-title">Date</legend>
+            <input
+              type="date"
+              name="date"
+              id="expense-date-text-box"
+              class="input-box"
+              required
+            />
+          </fieldset>
+          <div id="buttons-section">
+            <input type="reset" value="Clear" class="button" />
+            <input type="submit" value="Add" class="button" id="add-expense-btn" />
+          </div>
+        </form>
+      </article>
     </main>
   </body>
 </html>

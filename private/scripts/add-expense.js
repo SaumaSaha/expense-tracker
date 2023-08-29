@@ -1,3 +1,9 @@
+const addBackBtnListener = () => {
+  const backBtn = document.querySelector("#back-btn");
+
+  backBtn.onclick = () => location.replace("/pages/expenses.html");
+};
+
 const postExpense = () => {
   const title = document.querySelector("#expense-title-text-box").value;
   const amount = document.querySelector("#expense-amount-text-box").value;
@@ -21,6 +27,7 @@ const postExpense = () => {
 
 const main = () => {
   const form = document.querySelector("#add-expense-form");
+  addBackBtnListener();
 
   form.onsubmit = (event) => {
     event.preventDefault();
