@@ -2,11 +2,14 @@ const User = require("../models/user");
 
 const sendSignUpSuccessful = (_, res) => {
   const message = "Sign Up successful";
-  res.status(201).json({ message });
+
+  res.status(201).location("/pages/sign-in.html").json({ message });
 };
 
 const sendUsernameExists = (_, res) => {
-  res.status(403).send();
+  const message = "User name already exists";
+
+  res.status(403).send({ message });
 };
 
 const sendValidLogin = (req, res) => {

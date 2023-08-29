@@ -36,7 +36,7 @@ describe("GET /pages/sign-in.html", () => {
 });
 
 describe("POST /sign-up", () => {
-  it("should sign up user with the user name and password", (context, done) => {
+  it("should sign up user and redirect to sign in page", (context, done) => {
     const fs = {
       existsSync: context.mock.fn(() => false),
       readFileSync: context.mock.fn(),
@@ -56,6 +56,7 @@ describe("POST /sign-up", () => {
       .send({ name: "sauma", password: "123456" })
       .expect(201)
       .expect({ message: "Sign Up successful" })
+      .expect("location", "/pages/sign-in.html")
       .end(done);
   });
 
@@ -181,7 +182,7 @@ describe("GET /validate-username", () => {
       .end(done);
   });
 
-  it("should get 401 if the name in the cookie is not valid", (_, done) => {
+  it("should get 401 if the cookie is not valid", (_, done) => {
     const user = new User("sauma", "1234", 1);
     const users = new Users([user]);
     const app = createApp(users, null, null, null);

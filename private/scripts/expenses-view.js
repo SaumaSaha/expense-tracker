@@ -20,7 +20,6 @@ const generateDateString = (date) => {
   };
 
   const diff = getDateDiff(date);
-  console.log(diff);
   return dateStringLookUp[diff] || date;
 };
 
