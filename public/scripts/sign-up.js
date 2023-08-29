@@ -10,7 +10,7 @@ const submitSignUpForm = () => {
 
   fetch("/sign-up", request).then((res) => {
     if (res.status === 201) {
-      location.replace("/pages/sign-in.html");
+      location.replace(res.headers.location);
       return;
     }
     alert("Username Already Exists");
