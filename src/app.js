@@ -2,21 +2,25 @@ const express = require("express");
 const { handleAddExpense, handleGetExpenses } = require("./handlers/expense-handlers");
 
 const {
+  handleGetSignUp,
+  handleGetSignIn,
   handleSignUp,
   handleSignIn,
   handleValidateUsername,
   handleSignOut,
 } = require("./handlers/auth-handlers");
 
-const { logRequest } = require("./middlewares/request-logger");
-const { parseCookies } = require("./middlewares/cookie-parser");
-const { handleAuth } = require("./middlewares/auth-handler");
+const { logRequest } = require("./middleware/request-logger");
+const { parseCookies } = require("./middleware/cookie-parser");
+const { handleAuth } = require("./middleware/auth-handler");
 
 const addPublicHandlers = (app) => {
   app.use(logRequest);
   app.use(express.json());
   app.use(parseCookies);
   app.get("/validate-username", handleValidateUsername);
+  app.get("/sign-up", handleGetSignUp);
+  app.get("/sign-in", handleGetSignIn);
   app.post("/sign-up", handleSignUp);
   app.post("/sign-in", handleSignIn);
   app.use(express.static("public"));

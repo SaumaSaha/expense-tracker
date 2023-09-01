@@ -27,7 +27,7 @@ describe("GET /", () => {
   });
 });
 
-describe("GET /public/add-expense.html", () => {
+describe("GET /pages/add-expense.html", () => {
   it("should give the add expense page content", (_, done) => {
     const user = new User("sauma", "1234", 1);
     const users = new Users([user]);

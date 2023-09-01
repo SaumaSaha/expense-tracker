@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const pwd = process.env.PWD;
 
 const sendSignUpSuccessful = (_, res) => {
   const message = "Sign Up successful";
@@ -19,6 +20,15 @@ const sendValidLogin = (req, res) => {
 
 const sendInvalidLoginCredentials = (_, res) => {
   res.status(403).send();
+};
+
+const handleGetSignUp = (_, res) => {
+  console.log(pwd);
+  res.sendFile(pwd + "/public/pages/sign-up.html");
+};
+
+const handleGetSignIn = (_, res) => {
+  res.sendFile(pwd + "/public/pages/sign-in.html");
 };
 
 const handleSignUp = (req, res) => {
@@ -64,6 +74,8 @@ const handleSignOut = (_, res) => {
 };
 
 module.exports = {
+  handleGetSignUp,
+  handleGetSignIn,
   handleSignUp,
   handleSignIn,
   handleValidateUsername,

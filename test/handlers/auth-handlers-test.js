@@ -11,24 +11,24 @@ const User = require("../../src/models/user");
 const TEST_USER_STORAGE = "./test-data/test-user-storage.json";
 const TEST_EXPENSES_STORAGE = "./test-data/test-expenses-storage.json";
 
-describe("GET /pages/sign-up.html", () => {
+describe("GET /sign-up", () => {
   it("should give the sign up page", (_, done) => {
     const app = createApp(null, null, null, null);
 
     request(app)
-      .get("/pages/sign-up.html")
+      .get("/sign-up")
       .expect(200)
       .expect("content-type", /text\/html/)
       .end(done);
   });
 });
 
-describe("GET /pages/sign-in.html", () => {
+describe("GET /sign-in", () => {
   it("should give the sign in page", (_, done) => {
     const app = createApp(null, null, null, null);
 
     request(app)
-      .get("/pages/sign-in.html")
+      .get("/sign-in")
       .expect(200)
       .expect("content-type", /text\/html/)
       .end(done);
