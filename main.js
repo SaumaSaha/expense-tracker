@@ -25,7 +25,7 @@ const main = () => {
   const expenses = new Expenses(restoredExpenses);
 
   const app = createApp(users, expenses, idGenerator, dataStorage);
-  const port = 8000;
+  const port = process.env.PORT || 8000;
 
   app.listen(port, () => console.log("App listening on port:", port));
 };
