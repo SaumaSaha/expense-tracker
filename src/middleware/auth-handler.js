@@ -6,7 +6,7 @@ const handleAuth = (req, res, next) => {
     return;
   }
 
-  res.redirect(303, "/pages/sign-in.html");
+  res.redirect(303, "/sign-in");
 };
 
 module.exports = { handleAuth };

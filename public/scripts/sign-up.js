@@ -1,5 +1,5 @@
 const submitSignUpForm = () => {
-  const name = document.querySelector("#name-text-box").value.toUpperCase();
+  const name = document.querySelector("#name-text-box").value;
   const password = document.querySelector("#password-text-box").value;
 
   const request = {

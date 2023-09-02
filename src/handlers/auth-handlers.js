@@ -4,7 +4,7 @@ const pwd = process.env.PWD;
 const sendSignUpSuccessful = (_, res) => {
   const message = "Sign Up successful";
 
-  res.status(201).location("/pages/sign-in.html").json({ message });
+  res.status(201).location("/sign-in").json({ message });
 };
 
 const sendUsernameExists = (_, res) => {

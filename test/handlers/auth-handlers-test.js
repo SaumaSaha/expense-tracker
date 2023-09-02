@@ -56,7 +56,7 @@ describe("POST /sign-up", () => {
       .send({ name: "sauma", password: "123456" })
       .expect(201)
       .expect({ message: "Sign Up successful" })
-      .expect("location", "/pages/sign-in.html")
+      .expect("location", "/sign-in")
       .end(done);
   });
 

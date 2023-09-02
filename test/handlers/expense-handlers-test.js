@@ -68,11 +68,7 @@ describe("GET /expenses", () => {
     const users = new Users([user]);
     const app = createApp(users, expenses, idGenerator, null);
 
-    request(app)
-      .get("/expenses")
-      .expect(303)
-      .expect("location", "/pages/sign-in.html")
-      .end(done);
+    request(app).get("/expenses").expect(303).expect("location", "/sign-in").end(done);
   });
 });
 
