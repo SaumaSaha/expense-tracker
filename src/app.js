@@ -18,6 +18,7 @@ const addPublicHandlers = (app) => {
   app.use(logRequest);
   app.use(express.json());
   app.use(parseCookies);
+  app.get("/test", (_, res) => res.end("Bye World!!!"));
   app.get("/validate-username", handleValidateUsername);
   app.get("/sign-up", handleGetSignUp);
   app.get("/sign-in", handleGetSignIn);
