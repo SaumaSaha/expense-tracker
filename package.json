@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
+  "engines": {
+    "node": "20.4.0"
+  },
   "directories": {
     "test": "test"
   },
