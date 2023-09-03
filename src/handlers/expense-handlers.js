@@ -15,7 +15,7 @@ const handleAddExpense = (req, res) => {
   expenses.add(expense);
 
   const { totalExpense } = expenses.getDetails(name);
-  dataStorage.storeExpenses(expenses.details, () =>
+  dataStorage.storeExpenses(expenses.allDetails, () =>
     sendExpenseAdded(req, res, expenseId, totalExpense)
   );
 };

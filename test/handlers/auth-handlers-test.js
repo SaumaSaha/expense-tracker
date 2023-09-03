@@ -110,8 +110,9 @@ describe("POST /sign-in", () => {
     request(app)
       .post("/sign-in")
       .send({ name: "sauma", password: "123456" })
-      .expect(200)
+      .expect(303)
       .expect("set-cookie", "name=sauma; Path=/")
+      .expect("location", "/")
       .end(done);
   });
 

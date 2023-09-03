@@ -9,8 +9,8 @@ const submitSignInForm = () => {
   };
 
   fetch("/sign-in", request).then((res) => {
-    if (res.status === 200) {
-      location.replace("/");
+    if (res.redirected) {
+      location.replace(res.url);
       return;
     }
     alert("Bad Credentials");

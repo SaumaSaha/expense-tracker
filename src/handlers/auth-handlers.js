@@ -15,7 +15,7 @@ const sendUsernameExists = (_, res) => {
 
 const sendValidLogin = (req, res) => {
   const { name } = req.body;
-  res.status(200).cookie("name", name).send();
+  res.cookie("name", name).redirect(303, "/");
 };
 
 const sendInvalidLoginCredentials = (_, res) => {
